@@ -6,7 +6,7 @@ def input_students(poss_cohorts)
   #create an empty array
   students = []
   #get the first name
-  name = gets.chomp
+  name = gets.gsub("\n", "")
   while !name.empty? do
     #add the student hash to the array
     cohort = "initial value highly unlikely anyone will type this in"
@@ -15,11 +15,11 @@ def input_students(poss_cohorts)
         puts "Sorry, don't recognise that as a cohort. Possible values are: " + poss_cohorts.join(", ")
       end
       puts "Which cohort is #{name} heading for?"
-      cohort = gets.chomp
+      cohort = gets.gsub("\n", "")
     end
     students << {name: name, cohort: cohort.to_sym}
     puts "Now we have #{students.count} student" + (students.count > 1 ? "s" : "")
-    name = gets.chomp
+    name = gets.gsub("\n", "")
   end
   #return the array of students
   students
