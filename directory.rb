@@ -4,18 +4,18 @@
 def print_menu
   puts "1. Input students"
   puts "2. Show student data"
-  puts "3. Save student data to students.csv"
-  puts "4. Load student data from students.csv"
+  puts "3. Save student data"
+  puts "4. Load student data"
   puts "9. Exit"
 end
 
-#Print the students' names
 def print_header
   puts "The students of Villains Academy"
   puts "-------------"
 end
 
 def print_students_list
+  p @students
   @students.sort_by{|student| @poss_cohorts.index(student[:cohort].to_s)}.each do |student|
     puts "#{student[:name]}".center(30) + "#{student[:cohort]} cohort".center(18) #+ "#{student[:height]} tall and enjoys #{student[:hobbies]}".center(35)
   end
@@ -31,6 +31,40 @@ def show_students
   print_footer
 end
 
+def load_or_save_file(load_or_save)
+  if load_or_save == "load"
+    puts "Loading student data from students.csv - okay? (y/n)"
+  elsif load_or_save == "save"
+    puts "Saving student data to students.csv - okay? (y/n)"
+  else
+    puts "Catastrophic coding error. My apologies."
+    return
+  end
+  answer = STDIN.gets.chomp
+  case answer
+  when "y"
+    if load_or_save == "load"
+      load_students
+    elsif load_or_save == "save"
+      save_students
+    end
+  when "n"
+    puts "Okay, which filename do you want to use then?"
+    filename = STDIN.gets.chomp
+    if load_or_save == "load"
+      if File.exists?(filename)
+        load_students(filename)
+      else
+        puts "Sorry - don't seem to have that file"
+      end
+    elsif load_or_save == "save"
+      save_students(filename)
+    end
+  else
+    puts "Sorry - was expecting either a 'y' or an 'n'"
+  end
+end
+
 def process(selection)
   case selection
   when "1"
@@ -44,11 +78,9 @@ def process(selection)
       puts "No student data to show"
     end
   when "3"
-    puts "Saving student data..."
-    save_students
+    load_or_save_file("save")
   when "4"
-    puts "Loading student data..."
-    load_students
+    load_or_save_file("load")
   when "9"
     puts "Exiting program. Bye!"
     exit
@@ -64,9 +96,8 @@ def interactive_menu
   end
 end
 
-def save_students
-  # open the file for writing
-  file = File.open('students.csv', 'w')
+def save_students(filename = "students.csv")
+  file = File.open(filename, 'w')
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
     csv_line = student_data.join(",")
@@ -93,7 +124,7 @@ def add_student(name, cohort)
 end
 
 def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
+  file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
     add_student(name, cohort)
