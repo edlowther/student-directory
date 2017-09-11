@@ -18,7 +18,7 @@ def input_students(poss_cohorts)
       cohort = gets.chomp
     end
     students << {name: name, cohort: cohort.to_sym}
-    puts "Now we have #{students.count} students"
+    puts "Now we have #{students.count} student" + (students.count > 1 ? "s" : "")
     name = gets.chomp
   end
   #return the array of students
@@ -27,20 +27,20 @@ end
 
 
 #Get the user to enter the names of the students
-# students = input_students poss_cohorts
-students = [
-  {name: "Dr. Hannibal Lecter", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "182cm"},
-  {name: "Darth Vader", cohort: poss_cohorts.sample.to_sym, hobbies: "homebrewing", height: "187cm"},
-  {name: "Nurse Ratched", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "168cm"},
-  {name: "Michael Corleone", cohort: poss_cohorts.sample.to_sym, hobbies: "fishing", height: "166cm"},
-  {name: "Alex DeLarge", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "160cm"},
-  {name: "The Wicked Witch of the West", cohort: poss_cohorts.sample.to_sym, hobbies: "fishing", height: "174cm"},
-  {name: "Terminator", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "189cm"},
-  {name: "Freddy Krueger", cohort: poss_cohorts.sample.to_sym, hobbies: "homebrewing", height: "175cm"},
-  {name: "The Joker", cohort: poss_cohorts.sample.to_sym, hobbies: "coding", height: "171cm"},
-  {name: "Joffrey Baratheon", cohort: poss_cohorts.sample.to_sym, hobbies: "coding", height: "165cm"},
-  {name: "Norman Bates", cohort: poss_cohorts.sample.to_sym, hobbies: "music", height: "182cm"}
-]
+students = input_students poss_cohorts
+# students = [
+#   {name: "Dr. Hannibal Lecter", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "182cm"},
+#   {name: "Darth Vader", cohort: poss_cohorts.sample.to_sym, hobbies: "homebrewing", height: "187cm"},
+#   {name: "Nurse Ratched", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "168cm"},
+#   {name: "Michael Corleone", cohort: poss_cohorts.sample.to_sym, hobbies: "fishing", height: "166cm"},
+#   {name: "Alex DeLarge", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "160cm"},
+#   {name: "The Wicked Witch of the West", cohort: poss_cohorts.sample.to_sym, hobbies: "fishing", height: "174cm"},
+#   {name: "Terminator", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "189cm"},
+#   {name: "Freddy Krueger", cohort: poss_cohorts.sample.to_sym, hobbies: "homebrewing", height: "175cm"},
+#   {name: "The Joker", cohort: poss_cohorts.sample.to_sym, hobbies: "coding", height: "171cm"},
+#   {name: "Joffrey Baratheon", cohort: poss_cohorts.sample.to_sym, hobbies: "coding", height: "165cm"},
+#   {name: "Norman Bates", cohort: poss_cohorts.sample.to_sym, hobbies: "music", height: "182cm"}
+# ]
 
 #Print the students' names
 def print_header
@@ -55,7 +55,7 @@ def print(students, poss_cohorts)
 end
 
 def print_footer(names)
-  puts "Overall we have #{names.count} great students"
+  puts "Overall we have #{names.count} great student" + (names.count > 1 ? "s" : "")
 end
 
 print_header
