@@ -55,7 +55,7 @@ end
 def interactive_menu
   loop do
     print_menu
-    process(gets.chomp)
+    process(STDIN.gets.chomp)
   end
 end
 
@@ -70,7 +70,7 @@ def save_students
   file.close
 end
 
-def load_students
+def load_students(filename = "students.csv")
   file = File.open("students.csv", "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(",")
@@ -79,11 +79,23 @@ def load_students
   file.close
 end
 
+def try_load_students
+  filename = ARGV.first
+  return if filename.nil?
+  if File.exists?(filename)
+    load_students(filename)
+    puts "Loaded #{@students.count} from #{filename}"
+  else
+    puts "Sorry, #{filename} doesn't exist"
+    exit
+  end
+end
+
 def input_students
   puts "Please enter the name of the students"
   puts "To finish, just hit return twice"
   #get the first name
-  name = gets.gsub("\n", "")
+  name = STDIN.gets.chomp
   while !name.empty? do
     #add the student hash to the array
     cohort = "initial value highly unlikely anyone will type this in"
@@ -92,14 +104,16 @@ def input_students
         puts "Sorry, don't recognise that as a cohort. Possible values are: " + @poss_cohorts.join(", ")
       end
       puts "Which cohort is #{name} heading for?"
-      cohort = gets.gsub("\n", "")
+      cohort = STDIN.gets.chomp
     end
     @students << {name: name, cohort: cohort.to_sym}
     puts "Now we have #{@students.count} student" + (@students.count > 1 ? "s" : "")
-    name = gets.gsub("\n", "")
+    name = STDIN.gets.chomp
   end
 end
 
+# load data from disc if filename supplied on command line
+try_load_students
 # open interactive menu and find out what user wants to do
 interactive_menu
 # students = [
