@@ -1,3 +1,5 @@
+require 'csv'
+
 @students = []
 @poss_cohorts = ["september", "october", "november", "december"]
 
@@ -15,7 +17,6 @@ def print_header
 end
 
 def print_students_list
-  p @students
   @students.sort_by{|student| @poss_cohorts.index(student[:cohort].to_s)}.each do |student|
     puts "#{student[:name]}".center(30) + "#{student[:cohort]} cohort".center(18) #+ "#{student[:height]} tall and enjoys #{student[:hobbies]}".center(35)
   end
@@ -97,11 +98,10 @@ def interactive_menu
 end
 
 def save_students(filename = "students.csv")
-  File.open(filename, 'w') do |file|
+  CSV.open(filename, 'w') do |file|
     @students.each do |student|
       student_data = [student[:name], student[:cohort]]
-      csv_line = student_data.join(",")
-      file.puts csv_line
+      file << student_data
     end
   end
 end
@@ -124,11 +124,9 @@ def add_student(name, cohort)
 end
 
 def load_students(filename = "students.csv")
-  File.open(filename, "r") do |file|
-    file.readlines.each do |line|
-      name, cohort = line.chomp.split(",")
-      add_student(name, cohort)
-    end
+  CSV.foreach(filename) do |row|
+    name, cohort = row
+    add_student(name, cohort)
   end
 end
 
@@ -164,16 +162,3 @@ end
 try_load_students
 # open interactive menu and find out what user wants to do
 interactive_menu
-# students = [
-#   {name: "Dr. Hannibal Lecter", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "182cm"},
-#   {name: "Darth Vader", cohort: poss_cohorts.sample.to_sym, hobbies: "homebrewing", height: "187cm"},
-#   {name: "Nurse Ratched", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "168cm"},
-#   {name: "Michael Corleone", cohort: poss_cohorts.sample.to_sym, hobbies: "fishing", height: "166cm"},
-#   {name: "Alex DeLarge", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "160cm"},
-#   {name: "The Wicked Witch of the West", cohort: poss_cohorts.sample.to_sym, hobbies: "fishing", height: "174cm"},
-#   {name: "Terminator", cohort: poss_cohorts.sample.to_sym, hobbies: "football", height: "189cm"},
-#   {name: "Freddy Krueger", cohort: poss_cohorts.sample.to_sym, hobbies: "homebrewing", height: "175cm"},
-#   {name: "The Joker", cohort: poss_cohorts.sample.to_sym, hobbies: "coding", height: "171cm"},
-#   {name: "Joffrey Baratheon", cohort: poss_cohorts.sample.to_sym, hobbies: "coding", height: "165cm"},
-#   {name: "Norman Bates", cohort: poss_cohorts.sample.to_sym, hobbies: "music", height: "182cm"}
-# ]
