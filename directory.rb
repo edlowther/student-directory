@@ -13,7 +13,7 @@ def print_header
   puts "-------------"
 end
 
-def print
+def print_students_list
   @students.sort_by{|student| @poss_cohorts.index(student[:cohort].to_s)}.each do |student|
     puts "#{student[:name]}".center(30) + "#{student[:cohort]} cohort".center(18) #+ "#{student[:height]} tall and enjoys #{student[:hobbies]}".center(35)
   end
@@ -25,31 +25,31 @@ end
 
 def show_students
   print_header
-  print
+  print_students_list
   print_footer
+end
+
+def process(selection)
+  case selection
+  when "1"
+    input_students
+  when "2"
+    if @students.length > 0
+      show_students
+    else
+      puts "No student data to show"
+    end
+  when "9"
+    exit
+  else
+    puts "Sorry, please enter a valid option from the list"
+  end
 end
 
 def interactive_menu
   loop do
-    # 1. print the menu and ask the user what to do
     print_menu
-    # 2. read the input and save to a variable
-    selection = gets.chomp
-    # 3. do what the user has asked
-    case selection
-    when "1"
-      input_students
-    when "2"
-      if @students.length > 0
-        show_students
-      else
-        puts "No student data to show"
-      end
-    when "9"
-      exit
-    else
-      puts "Sorry, please enter a valid option from the list"
-    end
+    process(gets.chomp)
   end
 end
 
