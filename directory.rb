@@ -96,25 +96,32 @@ def load_students(filename = "students.csv")
   file.close
 end
 
-def input_students
-  puts "Please enter the name of the students"
-  puts "To finish, just hit return twice"
-  #get the first name
+def get_cohort name
+  cohort = "initial value highly unlikely anyone will type this in"
+  while !@poss_cohorts.include?(cohort)
+    if cohort != "initial value highly unlikely anyone will type this in"
+      puts "Sorry, don't recognise that as a cohort. Possible values are: " + @poss_cohorts.join(", ")
+    end
+    puts "Which cohort is #{name} heading for?"
+    cohort = STDIN.gets.chomp
+  end
+  cohort
+end
+
+def enter_data
   name = STDIN.gets.chomp
   while !name.empty? do
-    #add the student hash to the array
-    cohort = "initial value highly unlikely anyone will type this in"
-    while !@poss_cohorts.include?(cohort)
-      if cohort != "initial value highly unlikely anyone will type this in"
-        puts "Sorry, don't recognise that as a cohort. Possible values are: " + @poss_cohorts.join(", ")
-      end
-      puts "Which cohort is #{name} heading for?"
-      cohort = STDIN.gets.chomp
-    end
+    cohort = get_cohort name
     add_student(name, cohort)
     puts "Now we have #{@students.count} student" + (@students.count > 1 ? "s" : "")
     name = STDIN.gets.chomp
   end
+end
+
+def input_students
+  puts "Please enter the name of the students"
+  puts "To finish, just hit return twice"
+  enter_data
 end
 
 # load data from disc if filename supplied on command line
