@@ -40,7 +40,7 @@ end
 
 def print(students)
   students.each do |student|
-    puts "#{student[:name]} (#{student[:cohort]} cohort) - is #{student[:height]} tall and enjoys #{student[:hobbies]}"
+    puts "#{student[:name]}".center(30) + "#{student[:cohort]} cohort".center(18) + "#{student[:height]} tall and enjoys #{student[:hobbies]}".center(35)
   end
 end
 
