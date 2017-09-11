@@ -34,18 +34,23 @@ end
 def process(selection)
   case selection
   when "1"
+    puts "Okay, let's have some student data!"
     input_students
   when "2"
     if @students.length > 0
+      puts "Showing student data"
       show_students
     else
       puts "No student data to show"
     end
   when "3"
+    puts "Saving student data..."
     save_students
   when "4"
+    puts "Loading student data..."
     load_students
   when "9"
+    puts "Exiting program. Bye!"
     exit
   else
     puts "Sorry, please enter a valid option from the list"
