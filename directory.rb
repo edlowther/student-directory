@@ -19,17 +19,17 @@ end
 #Get the user to enter the names of the students
 # students = input_students
 students = [
-  {name: "Dr. Hannibal Lecter", cohort: :november},
-  {name: "Darth Vader", cohort: :november},
-  {name: "Nurse Ratched", cohort: :november},
-  {name: "Michael Corleone", cohort: :november},
-  {name: "Alex DeLarge", cohort: :november},
-  {name: "The Wicked Witch of the West", cohort: :november},
-  {name: "Terminator", cohort: :november},
-  {name: "Freddy Krueger", cohort: :november},
-  {name: "The Joker", cohort: :november},
-  {name: "Joffrey Baratheon", cohort: :november},
-  {name: "Norman Bates", cohort: :november}
+  {name: "Dr. Hannibal Lecter", cohort: :november, hobbies: "football", height: "182cm"},
+  {name: "Darth Vader", cohort: :november, hobbies: "homebrewing", height: "187cm"},
+  {name: "Nurse Ratched", cohort: :november, hobbies: "football", height: "168cm"},
+  {name: "Michael Corleone", cohort: :november, hobbies: "fishing", height: "166cm"},
+  {name: "Alex DeLarge", cohort: :november, hobbies: "football", height: "160cm"},
+  {name: "The Wicked Witch of the West", cohort: :november, hobbies: "fishing", height: "174cm"},
+  {name: "Terminator", cohort: :november, hobbies: "football", height: "189cm"},
+  {name: "Freddy Krueger", cohort: :november, hobbies: "homebrewing", height: "175cm"},
+  {name: "The Joker", cohort: :november, hobbies: "coding", height: "171cm"},
+  {name: "Joffrey Baratheon", cohort: :november, hobbies: "coding", height: "165cm"},
+  {name: "Norman Bates", cohort: :november, hobbies: "music", height: "182cm"}
 ]
 
 #Print the students' names
