@@ -70,15 +70,6 @@ def save_students
   file.close
 end
 
-def load_students(filename = "students.csv")
-  file = File.open("students.csv", "r")
-  file.readlines.each do |line|
-    name, cohort = line.chomp.split(",")
-    @students << {name: name, cohort: cohort.to_sym}
-  end
-  file.close
-end
-
 def try_load_students
   filename = ARGV.first
   return if filename.nil?
@@ -89,6 +80,19 @@ def try_load_students
     puts "Sorry, #{filename} doesn't exist"
     exit
   end
+end
+
+def add_student(name, cohort)
+  @students << {name: name, cohort: cohort.to_sym}
+end
+
+def load_students(filename = "students.csv")
+  file = File.open("students.csv", "r")
+  file.readlines.each do |line|
+    name, cohort = line.chomp.split(",")
+    add_student(name, cohort)
+  end
+  file.close
 end
 
 def input_students
@@ -106,7 +110,7 @@ def input_students
       puts "Which cohort is #{name} heading for?"
       cohort = STDIN.gets.chomp
     end
-    @students << {name: name, cohort: cohort.to_sym}
+    add_student(name, cohort)
     puts "Now we have #{@students.count} student" + (@students.count > 1 ? "s" : "")
     name = STDIN.gets.chomp
   end
