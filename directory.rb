@@ -2,7 +2,7 @@
 @poss_cohorts = ["september", "october", "november", "december"]
 
 def print_menu
-  puts"1. Input students"
+  puts "1. Input students"
   puts "2. Show student data"
   puts "9. Exit"
 end
