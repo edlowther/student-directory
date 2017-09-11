@@ -58,6 +58,8 @@ def print_footer(names)
   puts "Overall we have #{names.count} great student" + (names.count > 1 ? "s" : "")
 end
 
-print_header
-print(students, poss_cohorts)
-print_footer(students)
+if students.length > 0
+  print_header
+  print(students, poss_cohorts)
+  print_footer(students)
+end
